@@ -1,0 +1,9 @@
+﻿@model AuthExam.Models.UserResourceViewModel
+<div class="row">
+    @foreach (var item in Model.FileNames)
+    {
+    <div class="col-lg-4 col-xs-6">
+        <img src="@Url.Content($@"{Model.Directory}{item}")" />
+    </div>
+    }
+</div>

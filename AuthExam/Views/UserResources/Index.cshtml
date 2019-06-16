@@ -1,0 +1,110 @@
+﻿@model AuthExam.Models.UserResourceViewModel
+<div class="start-template">
+    <div class="row">
+        @foreach (var item in Model.FileNames)
+        {
+            <div class="col-lg-4 col-xs-6">
+                <a data-toggle="modal" data-target="#myImageModal" onclick="$('#imageShow').attr('src', $(this).children('img').attr('src'));"
+                   @*href="@Url.Action("Get", "UserResources",new { @id= Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(item))})"*@>
+                    <img src="@Url.Content($@"{Model.Directory}{item}")" width="64" height="64" />
+                </a>
+            </div>
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-xs-6">
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myPicInput">
+            Add images
+        </button>
+    </div>
+</div>
+<div class="container" style="padding-top:20px;">
+    <div class="row">
+        <div class="col-lg-4 col-xs-6">
+            <a id="loadList" href="/Info/Get/@ViewBag.UserId">
+                Load image list
+            </a>
+        </div>
+        <div class="col-lg-8 col-xs-6">
+            <pre id="json_container">
+        </pre>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myPicInput" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <section>
+                    @using (Html.BeginForm("Add", "UserResources", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="well bs-component">
+                            <br />
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-8 col-md-push-2">
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <span class="btn btn-default btn-file">
+                                                    <input type="file" name="files" multiple />
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="col-md-offset-5 col-md-10">
+                                            <input type="submit" class="btn btn-danger" value="Upload" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </section>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myImageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <section>
+                    <img src="" id="imageShow" />
+                </section>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@Styles.Render("~/Content/resources.css")
+@section Scripts {
+    @Scripts.Render("~/Scripts/resourcescript.js")
+}

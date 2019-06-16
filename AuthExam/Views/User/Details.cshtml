@@ -1,0 +1,77 @@
+﻿@model AuthExam.Models.UserViewModel
+
+    <div>
+        <h4>ApplicationUser</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PhoneNumber)
+            </dd>
+        </dl>
+
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Addresses, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <table class="table">
+                        <tr>
+                            <th>
+                                Zip code
+                            </th>
+                            <th>
+                                City
+                            </th>
+                            <th>
+                                Street
+                            </th>
+                            <th>
+                                House Number
+                            </th>
+                        </tr>
+                        @for (var i = 0; i < Model.Addresses.Count(); i++)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(addr => Model.Addresses.ToList()[i].ZipCode)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(addr => Model.Addresses.ToList()[i].City.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(addr => Model.Addresses.ToList()[i].Street)
+                                </td>
+                                <td style="width:120px">
+                                    @Html.DisplayFor(addr => Model.Addresses.ToList()[i].HouseNumber)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<p>
+    @if (!Model.IsAdmin)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+    }
+    @Html.ActionLink("Back to List", "Index")
+</p>

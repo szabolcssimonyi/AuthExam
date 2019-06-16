@@ -1,0 +1,21 @@
+﻿
+.start-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+    .start-template a {
+        padding: 5px;
+        display: block;
+    }
+
+        .start-template a img {
+            cursor: pointer;
+            border: solid #DDD 1px;
+            border-radius: 4px;
+        }
+
+#imageShow {
+    width: 100%;
+    height: 100%;
+}

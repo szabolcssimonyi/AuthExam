@@ -1,0 +1,112 @@
+﻿@model AuthExam.Models.UserViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>UserViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @{ Html.EnableClientValidation(false); }
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @{ Html.EnableClientValidation(true); }
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @{ Html.EnableClientValidation(false); }
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                @{ Html.EnableClientValidation(true); }
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Addresses, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Zip code
+                            </th>
+                            <th>
+                                City
+                            </th>
+                            <th>
+                                Street
+                            </th>
+                            <th>
+                                House Number
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    @for (var i = 0; i < Model.Addresses.Count(); i++)
+                    {
+                        <tr>
+                            @Html.HiddenFor(x => Model.Addresses[i].Id)
+                            <td>
+                                @Html.TextBoxFor(model => Model.Addresses[i].ZipCode, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => Model.Addresses[i].ZipCode, "", new { @class = "text-danger" })
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(model => Model.Addresses[i].SelectedCityId, new SelectList(Model.Addresses[i].Cities, "Id", "Name", Model.Addresses[i].SelectedCityId), new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => Model.Addresses[i].SelectedCityId, "", new { @class = "text-danger" })
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(model => Model.Addresses[i].Street, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => Model.Addresses[i].Street, "", new { @class = "text-danger" })
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(model => Model.Addresses[i].HouseNumber, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => Model.Addresses[i].HouseNumber, "", new { @class = "text-danger" })
+                            </td>
+                            <td>
+                                <button id="deleteAddress" class="btn btn-default">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <button id="addAddress" class="btn btn-info">Add new</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Save" class="btn btn-warning" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/userScript.js")
+}

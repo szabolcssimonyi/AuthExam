@@ -1,0 +1,55 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top:50px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.flex-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px;
+    padding: 20px;
+    border: solid 1px #DDD;
+    border-radius: 4px;
+    background-color: #FAFAFA;
+    box-shadow: 1px 1px #AAA;
+    padding: 40px 0;
+    text-decoration: none!important;
+    max-width: 500px;
+}
+    .flex-grid .card-icon {
+        font-size: 64px;
+        margin-right: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #AAA;        
+    }
+
+    .flex-grid .card-text {
+        font-size: 32px;
+        margin-right: 50px;
+        text-shadow: 2px 2px #FFF;
+    }
