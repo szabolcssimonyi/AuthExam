@@ -87,7 +87,12 @@ namespace AuthExam.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(UserViewModel user)
         {
-            var result = await userManager.CreateAsync(new ApplicationUser
+            var result = await userManager.PasswordValidator.ValidateAsync(user.Password);
+            if (!result.Succeeded)
+            {
+                return RedirectToAction("Index");
+            }
+            result = await userManager.CreateAsync(new ApplicationUser
             {
                 Email = user.Email,
                 UserName = user.Email,
@@ -99,6 +104,7 @@ namespace AuthExam.Controllers
             {
                 var newUser = await userManager.FindByEmailAsync(user.Email);
                 await userManager.AddToRoleAsync(newUser.Id, "User");
+                await userManager.AddPasswordAsync(newUser.Id, user.Password);
             }
             return RedirectToAction("Index");
         }

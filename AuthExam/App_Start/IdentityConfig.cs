@@ -10,6 +10,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace AuthExam
 {
@@ -50,11 +51,10 @@ namespace AuthExam
         public ApplicationDbContext()
            : base("DefaultConnection", throwIfV1Schema: false)
         {
-           // Database.SetInitializer(new CreateDatabaseIfNotExists<ApplicationDbContext>());
         }
     }
 
-    public class ApplicationDbInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    public class ApplicationDbInitializer : CreateDatabaseIfNotExists<ApplicationDbContext>
     {
         private readonly ApplicationUserManager userManager;
         private readonly RoleManager<IdentityRole> roleManager;
