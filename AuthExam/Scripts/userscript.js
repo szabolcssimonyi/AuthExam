@@ -23,7 +23,7 @@
             + addInputStr('Street', 6, 50)
             + addInputStr('HouseNumber', 1, 12)
             + "<td><button class='btn btn-primary' onclick='$(this).closest(\"tr\").remove();'>Delete</button></td>"
-            + "</td>");
+            + "</tr>");
         refreshValidation($(this));
     });
 
@@ -65,7 +65,7 @@
             + " data-val-required='A következő mező megadása kötelező: " + name + ".'"
             + " type='text' class='form-control' name = 'Addresses[" + addressCount + "]." + name + "' />"
             + "<span class='text-danger field-validation-valid' data-valmsg-for='Addresses[" + addressCount + "]." + name + "' data-valmsg-replace='true'>"
-            + "</span ></td > ";
+            + "</span ></td> ";
     }
 
     function addSelect(list, name) {
